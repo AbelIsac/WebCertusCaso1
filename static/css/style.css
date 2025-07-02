@@ -1,0 +1,29 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+footer {
+  margin-top: 50px;
+}
+.modal-content {
+  border-radius: 20px !important;
+  padding: 40px;
+}
+
+.modal-body input,
+.modal-body select {
+  font-size: 14px;
+}
+
+.modal-body label {
+  font-weight: 500;
+  font-size: 14px;
+}
+footer h6 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

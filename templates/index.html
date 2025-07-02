@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Creali{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="text-center py-5 bg-light rounded-3 shadow-sm">
+  <h1 class="mb-3">Bienvenido a Creali</h1>
+  <p class="lead mb-4">La galería virtual donde los estudiantes comparten y venden su talento creativo.</p>
+  <a href="#" class="btn btn-primary btn-lg">Ver más</a>
+</div>
+
+<!-- Galería -->
+<h2 class="mt-5 mb-4 text-center">Galería de Trabajos</h2>
+
+<div class="row">
+  <!-- Filtro lateral -->
+  <div class="col-md-3 mb-4">
+    <h5>Categoría</h5>
+    <ul class="list-group mb-4">
+      <li class="list-group-item">Diseño</li>
+      <li class="list-group-item">Ilustración</li>
+      <li class="list-group-item">Software</li>
+      <li class="list-group-item">Negocios</li>
+    </ul>
+
+    <h5>Rango de Precios</h5>
+    <input type="range" class="form-range" min="0" max="500" step="10">
+  </div>
+
+  <!-- Galería de imágenes -->
+  <div class="col-md-9">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      {% for i in range(12) %}
+      <div class="col">
+        <div class="card h-100">
+          <img src="{{ url_for('static', filename='img/img_placeholder.png') }}" class="card-img-top" alt="Trabajo">
+          <div class="card-body">
+            <h5 class="card-title">Trabajo {{ i + 1 }}</h5>
+            <p class="card-text">Descripción breve del trabajo.</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
