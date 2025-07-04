@@ -1,0 +1,10 @@
+/* Espaciado vertical cómodo para cada sección */
+.section {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+/* Fondo claro para separar visualmente una sección */
+.section-alt {
+  background-color: #f8f9fa; /* Bootstrap Light */
+}
