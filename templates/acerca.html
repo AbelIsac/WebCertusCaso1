@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="container py-5">
+  <div class="row align-items-center mb-5">
+    <div class="col-md-6">
+      <h2>¿Quiénes somos?</h2>
+      <p>Creali es una plataforma digital creada para impulsar el talento de estudiantes de distintas disciplinas creativas. Nuestro objetivo es brindarles un espacio donde puedan mostrar, compartir y vender sus proyectos de forma profesional.</p>
+      <p>Aquí encontrarás ilustraciones, diseños, desarrollos de software, productos digitales y más, elaborados por jóvenes con pasión e innovación. Creali busca fomentar el emprendimiento estudiantil, conectando creadores con personas interesadas en adquirir ideas frescas y originales.</p>
+      <p>Creemos en el poder de la creatividad y en la comunidad que la respalda.</p>
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="{{ url_for('static', filename='img/acerca2.jpg') }}" class="img-fluid rounded" alt="Estudiante trabajando">
+    </div>
+  </div>
+
+  <div class="text-center mb-5">
+    <h2>De estudiantes para el mundo</h2>
+    <p class="w-75 mx-auto">Creali nació como una iniciativa estudiantil para resolver un problema común: ¿dónde mostrar todo lo que creamos? Desde entonces, se ha convertido en un espacio para exponer talento, generar ingresos y construir una comunidad creativa.</p>
+    <img src="{{ url_for('static', filename='img/acerca3.jpg') }}" class="img-fluid rounded mt-3" alt="Trabajo en equipo">
+  </div>
+
+  <div class="text-center mt-5">
+    <h2>Nuestros valores</h2>
+  </div>
+
+  <div class="row text-center mt-4">
+    <div class="col-md-3">
+      <div class="mb-3 fs-3">🎨</div>
+      <h5>Creatividad</h5>
+      <p>Fomentamos la libertad para expresarse a través de ilustraciones, diseño, desarrollo y más. Cada estudiante tiene un estilo único.</p>
+    </div>
+    <div class="col-md-3">
+      <div class="mb-3 fs-3">🚀</div>
+      <h5>Emprendimiento</h5>
+      <p>Ayudamos a convertir ideas y proyectos en oportunidades reales de ingresos, desde el aula hacia el mundo.</p>
+    </div>
+    <div class="col-md-3">
+      <div class="mb-3 fs-3">🤝</div>
+      <h5>Comunidad</h5>
+      <p>Promovemos colaboración, respeto y aprendizaje mutuo entre estudiantes, compradores y creativos.</p>
+    </div>
+    <div class="col-md-3">
+      <div class="mb-3 fs-3">🌐</div>
+      <h5>Accesibilidad</h5>
+      <p>Plataforma abierta 24/7 para cualquier estudiante que quiera compartir su trabajo, sin importar su experiencia.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
