@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Explorar Proyectos | Creali{% endblock %}
+
+{% block content %}
+
+<!-- 🔹 Título principal -->
+<h2 class="mb-2 fw-bold text-center">Explora los Proyectos</h2>
+<p class="text-muted text-center mb-4">Filtra por categoría o valoración para encontrar los proyectos ideales para ti.</p>
+
+<!-- 🔍 Filtros -->
+<form method="get" class="row mb-5 justify-content-center">
+  <div class="col-md-3 mb-2">
+    <select name="categoria" class="form-select">
+      <option value="">Todas las Categorías</option>
+      <option value="Ilustracion" {% if categoria == 'Ilustracion' %}selected{% endif %}>Ilustración</option>
+      <option value="Software" {% if categoria == 'Software' %}selected{% endif %}>Software</option>
+      <option value="Negocios" {% if categoria == 'Negocios' %}selected{% endif %}>Negocios</option>
+      <option value="Diseno" {% if categoria == 'Diseno' %}selected{% endif %}>Diseño Gráfico</option>
+    </select>
+  </div>
+
+  <div class="col-md-3 mb-2">
+    <select name="orden" class="form-select">
+      <option value="">Ordenar por</option>
+      <option value="precio" {% if orden == 'precio' %}selected{% endif %}>Precio</option>
+      <option value="valoracion" {% if orden == 'valoracion' %}selected{% endif %}>Valoración</option>
+    </select>
+  </div>
+
+  <div class="col-md-2 mb-2">
+    <button type="submit" class="btn btn-dark w-100">Aplicar</button>
+  </div>
+</form>
+
+<!-- 📦 Lista de proyectos -->
+{% if proyectos %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for p in proyectos %}
+    <div class="col">
+      <div class="card h-100 shadow-sm">
+        <img src="{{ url_for('static', filename='img/proyecto_placeholder.png') }}" class="card-img-top" alt="Proyecto">
+        <div class="card-body">
+          <h5 class="card-title">{{ p.nombre }}</h5>
+          <p class="card-text text-muted">Por {{ p.autor }}</p>
+          <p class="fw-bold">{{ p.precio }}$</p>
+          <p class="text-warning mb-3">
+            {% for i in range(p.valoracion) %}★{% endfor %}
+            {% for i in range(5 - p.valoracion) %}☆{% endfor %}
+          </p>
+          <a href="#" class="btn btn-outline-primary btn-sm mb-2 w-100">Ver Proyecto</a>
+          <button class="btn btn-dark btn-sm w-100">Agregar al Carrito</button>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% else %}
+<!-- 🛑 Si no hay proyectos que mostrar -->
+<div class="alert alert-info text-center mt-4">
+  No se encontraron proyectos con los filtros seleccionados.
+</div>
+{% endif %}
+
+{% endblock %}
+
