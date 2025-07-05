@@ -48,7 +48,10 @@
             {% for i in range(p.valoracion) %}★{% endfor %}
             {% for i in range(5 - p.valoracion) %}☆{% endfor %}
           </p>
-          <a href="#" class="btn btn-outline-primary btn-sm mb-2 w-100">Ver Proyecto</a>
+          <a href="{{ url_for('detalle_proyecto', id=p.id) }}" class="btn btn-outline-primary btn-sm mb-2 w-100">
+  Ver Proyecto
+</a>
+
           <button class="btn btn-dark btn-sm w-100">Agregar al Carrito</button>
         </div>
       </div>
