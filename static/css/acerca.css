@@ -1,0 +1,5 @@
+
+/* Aplica Montserrat solo a elementos dentro del main container de Acerca */
+#acerca-content {
+  font-family: 'Montserrat', sans-serif;
+}
