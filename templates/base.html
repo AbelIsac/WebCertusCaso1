@@ -11,6 +11,7 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <!-- ✅ Tu CSS general -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
   <!-- Bootstrap Icons (en <head>) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   
@@ -18,6 +19,13 @@
 
   <!-- ✅ CSS adicional por página -->
   {% block head %}{% endblock %}
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  
+
+
 </head>
 
 
@@ -47,6 +55,7 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('explorar') }}">Explorar</a>
         </li>
+        
         <li class="nav-item">
           <button class="btn btn-dark ms-3" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</button>
         </li>

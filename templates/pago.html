@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Pago | Creali{% endblock %}
+
+{% block content %}
+<div class="container my-5" style="max-width: 600px;">
+  <h2 class="mb-4 text-center"><i class="bi bi-credit-card-2-front-fill text-primary"></i> Información de Pago</h2>
+
+  <form method="post" action="{{ url_for('procesar_pago') }}" class="border p-4 rounded-4 shadow-sm bg-light">
+
+    <!-- Nombre completo -->
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre completo</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Juan Pérez" required>
+      </div>
+    </div>
+
+    <!-- Correo electrónico -->
+    <div class="mb-3">
+      <label for="correo" class="form-label">Correo electrónico</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+        <input type="email" class="form-control" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
+      </div>
+    </div>
+
+    <!-- Número de teléfono -->
+    <div class="mb-3">
+      <label for="telefono" class="form-label">Número de teléfono</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+        <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="987654321" required>
+      </div>
+    </div>
+
+    <!-- Tipo de tarjeta -->
+    <div class="mb-3">
+      <label for="tipo_tarjeta" class="form-label">Tipo de tarjeta</label>
+      <select class="form-select" id="tipo_tarjeta" name="tipo_tarjeta" required>
+        <option disabled selected value="">Selecciona una opción</option>
+        <option>Visa</option>
+        <option>Mastercard</option>
+        <option>American Express</option>
+        <option>Discover</option>
+      </select>
+    </div>
+
+    <!-- Número de tarjeta -->
+    <div class="mb-3">
+      <label for="tarjeta" class="form-label">Número de tarjeta</label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="bi bi-credit-card"></i></span>
+        <input type="text" class="form-control" id="tarjeta" name="tarjeta" placeholder="1234 5678 9012 3456" maxlength="16" required>
+      </div>
+    </div>
+
+    <!-- CVV y fecha -->
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="cvv" class="form-label">CVV</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-shield-lock-fill"></i></span>
+          <input type="text" class="form-control" id="cvv" name="cvv" placeholder="123" maxlength="4" required>
+        </div>
+      </div>
+
+      <div class="col-md-6 mb-4">
+        <label for="fecha" class="form-label">Fecha de vencimiento</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-calendar-event-fill"></i></span>
+          <input type="month" class="form-control" id="fecha" name="fecha" required>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success w-100">
+      <i class="bi bi-check-circle-fill"></i> Confirmar y Pagar
+    </button>
+  </form>
+</div>
+{% endblock %}
+
+
