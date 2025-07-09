@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Pedido #{{ pedido.id }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5" style="max-width: 900px;">
+  <div class="card shadow-sm rounded-4 border-0">
+    <div class="card-body p-4">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0">📦 Detalle del Pedido #{{ pedido.id }}</h3>
+        <span class="badge px-3 py-2 fs-6 
+          {% if pedido.estado == 'pendiente' %} bg-warning text-dark
+          {% elif pedido.estado == 'completado' %} bg-success
+          {% elif pedido.estado == 'procesando' %} bg-primary
+          {% else %} bg-secondary
+          {% endif %}">
+          {{ pedido.estado|capitalize }}
+        </span>
+      </div>
+
+      <div class="row">
+        <!-- Facturación -->
+        <div class="col-md-6 mb-4">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title mb-3">🧾 Detalles de Facturación</h5>
+              <p class="mb-1 fw-semibold">Maria Gomez</p>
+              <p class="mb-1">Calle los Rutas</p>
+              <p class="mb-1">PED.508 / Ate - Lima</p>
+              <p class="mb-1">📧 mariago23@gmail.com</p>
+              <p class="mb-1">📞 965455555</p>
+              <p class="mb-0">💳 Pago: Mastercard</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Envío -->
+        <div class="col-md-6 mb-4">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title mb-3">🚚 Detalles de Envío</h5>
+              <p class="mb-1 fw-semibold">Maria Gomez</p>
+              <p class="mb-1">Calle los Rutas</p>
+              <p class="mb-1">PED.508 / Ate - Lima</p>
+              <p class="mb-0">📦 Método: Envío Tradicional</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <a href="{{ url_for('pedidos') }}" class="btn btn-outline-secondary mt-3">
+          ⬅ Volver a pedidos
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Tus pedidos{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5" style="max-width: 900px;">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body p-4">
+      <h2 class="mb-3 text-center">🧾 Tus Pedidos</h2>
+      <p class="text-muted text-center">Aquí aparecerán los pedidos que hayas realizado.</p>
+
+      {% if pedidos %}
+      <div class="table-responsive mt-4">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th style="width: 5%;"></th>
+              <th style="width: 35%;">Pedido</th>
+              <th style="width: 20%;">Fecha</th>
+              <th style="width: 20%;">Estado</th>
+              <th style="width: 20%;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pedido in pedidos %}
+            <tr>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>
+                <a href="{{ url_for('detalle_pedido', pedido_id=pedido.id) }}" class="text-decoration-none fw-semibold">
+                  {{ pedido.titulo }} <span class="text-muted">#{{ pedido.id }}</span>
+                </a>
+              </td>
+              <td>{{ pedido.fecha }}</td>
+              <td>
+                {% if pedido.estado == 'pendiente' %}
+                  <span class="badge rounded-pill bg-warning text-dark px-3 py-2">🕒 Pendiente</span>
+                {% elif pedido.estado == 'completado' %}
+                  <span class="badge rounded-pill bg-success px-3 py-2">✅ Completado</span>
+                {% elif pedido.estado == 'procesando' %}
+                  <span class="badge rounded-pill bg-primary px-3 py-2">🔄 Procesando</span>
+                {% else %}
+                  <span class="badge rounded-pill bg-secondary px-3 py-2">❔ Desconocido</span>
+                {% endif %}
+              </td>
+              <td class="fw-bold">{{ "%.2f"|format(pedido.total) }}$</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 📥 Herramientas adicionales -->
+      <div class="mt-5">
+        <div class="text-center mb-3">
+          <a href="{{ url_for('descargar_pedidos') }}" class="btn btn-outline-success px-4 me-2">
+            ⬇ Descargar historial
+          </a>
+          <a href="{{ url_for('explorar') }}" class="btn btn-outline-primary px-4 me-2">
+            🔍 Explorar más proyectos
+          </a>
+          <a href="{{ url_for('contacto') }}" class="btn btn-outline-secondary px-4">
+            📩 Contacto por soporte
+          </a>
+        </div>
+      </div>
+
+      {% else %}
+        <div class="alert alert-info text-center mt-4">
+          No tienes pedidos registrados aún.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+

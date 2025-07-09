@@ -5,96 +5,147 @@
   <title>{% block title %}Creali{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ✅ Bootstrap 5 CSS -->
+  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- AOS: Animate On Scroll Library -->
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- AOS: Animate On Scroll -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <!-- ✅ Tu CSS general -->
+  <!-- Tu CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-  <!-- Bootstrap Icons (en <head>) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  
-
-
-  <!-- ✅ CSS adicional por página -->
   {% block head %}{% endblock %}
 
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-  
+    main {
+      flex: 1;
+    }
 
+    .navbar-dark-custom {
+      background: linear-gradient(90deg, #111111, #2c3e50);
+      color: white;
+    }
 
+    .navbar-dark-custom .nav-link,
+    .navbar-dark-custom .navbar-brand,
+    .navbar-dark-custom .dropdown-toggle {
+      color: #f0f0f0 !important;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-dark-custom .nav-link:hover,
+    .navbar-dark-custom .dropdown-toggle:hover {
+      color: #ffffff !important;
+      transform: scale(1.08);
+    }
+
+    .navbar-dark-custom .dropdown-menu {
+      background-color: #ffffff;
+      border: none;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-dark-custom .dropdown-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .btn-login {
+      background-color: #ffffff;
+      color: #111111;
+      border-radius: 50px;
+      font-weight: 600;
+      padding: 6px 16px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #f8f9fa;
+      transform: scale(1.05);
+    }
+  </style>
 </head>
-
-
 
 <body>
 
-  <!-- 🔷 Header / Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-  <div class="container" style="max-width: 1000px; max-height: 80px">  <!-- 💡 Limita el ancho -->
-
-    <a class="navbar-brand d-flex align-items-center" href="{{ url_for('home') }}">
-      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="me-2" style="height: 100px;">
+<!-- 🔷 NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark-custom shadow-sm py-4">
+  <div class="container" style="max-width: 1150px;">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url_for('home') }}">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" height="45">
+      <span class="fw-bold d-none d-md-inline">CREALI</span>
     </a>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <i class="bi bi-list text-white fs-3"></i>
     </button>
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav align-items-center">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('home') }}">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('acerca') }}">Acerca de</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('explorar') }}">Explorar</a>
-        </li>
-        
-        {% if session.get('usuario_nombre') %}
-          <li class="nav-item">
-            <span class="nav-link">Hola, {{ session['usuario_nombre'] }} ({{ session['usuario_rol'] }})</span>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-outline-danger ms-3" href="{{ url_for('logout') }}">Cerrar sesión</a>
-          </li>
-        {% else %}
-          <li class="nav-item">
-            <button class="btn btn-dark ms-3" data-bs-toggle="modal" data-bs-target="#loginModal">Iniciar Sesión</button>
-          </li>
-        {% endif %}
+      <ul class="navbar-nav align-items-center gap-3">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}"><i class="bi bi-house-door fs-5"></i></a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('explorar') }}"><i class="bi bi-search fs-5"></i></a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('acerca') }}"><i class="bi bi-info-circle fs-5"></i></a></li>
 
+        {% if session.get('usuario_nombre') %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('pedidos') }}"><i class="bi bi-card-checklist fs-5"></i></a></li>
+        <li class="nav-item position-relative">
+          <a class="nav-link" href="{{ url_for('carrito') }}" title="Carrito">
+            <i class="bi bi-cart3 fs-5"></i>
+            {% if session.get('carrito') %}
+            <span class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-pill">
+              {{ session['carrito']|length }}
+            </span>
+            {% endif %}
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="usuarioDropdown" role="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle fs-5"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li class="dropdown-item-text small text-muted">👤 {{ session['usuario_nombre'] }}</li>
+            <li class="dropdown-item-text small text-muted">Rol: {{ session['usuario_rol'] }}</li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <button class="btn btn-login" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <i class="bi bi-box-arrow-in-right"></i> Iniciar
+          </button>
+        </li>
+        {% endif %}
       </ul>
     </div>
   </div>
 </nav>
 
+<!-- 🔽 CONTENIDO -->
+<main class="container my-5">
+  {% block content %}{% endblock %}
+</main>
 
-
-  <!-- 🔽 Contenido principal -->
-  <main class="container my-5">
-    {% block content %}{% endblock %}
-  </main>
-
-  <!-- 🔻 Footer -->
+<!-- 🔻 FOOTER -->
 <footer class="bg-dark text-light pt-5 pb-4">
   <div class="container">
     <div class="row">
-
-      <!-- Logo -->
       <div class="col-md-3 mb-3">
         <div class="d-flex align-items-center mb-2">
-          <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Creali Logo" style="height: 40px;" class="me-2">
+          <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" height="40" class="me-2">
           <span class="fs-5 fw-bold">CREALI</span>
         </div>
       </div>
 
-      <!-- Enlaces -->
       <div class="col-md-3 mb-3">
         <h6>Enlaces</h6>
         <ul class="list-unstyled small">
@@ -105,7 +156,6 @@
         </ul>
       </div>
 
-      <!-- Más enlaces -->
       <div class="col-md-3 mb-3">
         <h6>Comunidad</h6>
         <ul class="list-unstyled small">
@@ -116,15 +166,12 @@
         </ul>
       </div>
 
-      <!-- Suscripción -->
       <div class="col-md-3 mb-3">
         <h6>Suscríbete</h6>
         <form class="d-flex flex-column gap-2">
           <input type="email" class="form-control" placeholder="Enter your email">
           <button type="submit" class="btn btn-light btn-sm">Suscribirse</button>
         </form>
-
-        <!-- Redes sociales -->
         <div class="mt-3 d-flex gap-2">
           <a href="#"><img src="{{ url_for('static', filename='img/facebook.png') }}" alt="Facebook" height="20"></a>
           <a href="#"><img src="{{ url_for('static', filename='img/instagram.png') }}" alt="Instagram" height="20"></a>
@@ -132,28 +179,19 @@
           <a href="#"><img src="{{ url_for('static', filename='img/youtube.png') }}" alt="YouTube" height="20"></a>
         </div>
       </div>
-
     </div>
   </div>
 </footer>
 
-
-  <!-- JS de Bootstrap -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Modal de Inicio de Sesión -->
-<!-- Modal de Inicio de Sesión Estilo Personalizado -->
+<!-- 🔽 MODAL LOGIN -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content p-4 rounded-4 shadow" style="max-width: 420px; margin: auto;">
-
       <div class="text-center mb-3">
         <h3 class="fw-bold">Iniciar Sesión</h3>
         <p class="text-muted small">Inicia sesión con tu correo electrónico</p>
       </div>
-
       <div class="modal-body">
-
         <form method="GET" action="{{ url_for('login') }}">
           <div class="mb-3">
             <label class="form-label">Rol</label>
@@ -164,43 +202,31 @@
               <option value="comprador">Comprador</option>
             </select>
           </div>
-
-          <!-- ✅ Este es el botón que lanza el login con Google -->
           <button type="submit" class="btn w-100 d-flex align-items-center justify-content-center border" style="background-color: #f5f5f5;">
             <img src="{{ url_for('static', filename='img/google-icon.png') }}" alt="Google" style="height: 20px; margin-right: 10px;">
             <span class="fw-semibold text-dark">Inicia Sesión con Google</span>
           </button>
         </form>
-
-
-
       </div>
     </div>
   </div>
 </div>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
-<!-- Tus otros scripts como Bootstrap y AOS -->
+<!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   AOS.init();
 </script>
 
-<!-- ✅ Script para habilitar botón de login solo si elige rol -->
 <script>
   const selectRol = document.getElementById('selectRol');
   const btnGoogle = document.getElementById('btnGoogleLogin');
-
   selectRol?.addEventListener('change', () => {
     btnGoogle.disabled = !selectRol.value;
   });
 </script>
-</body>
-</html>
 
 </body>
 </html>
+
