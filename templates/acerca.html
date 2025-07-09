@@ -1,58 +1,106 @@
 {% extends "base.html" %}
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/acerca.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-<!-- Sección: ¿Quiénes somos? -->
-<section class="section container">
-  <div class="row align-items-center">
-    <div class="col-md-6">
-      <h2 class="fw-bold mb-4">¿Quiénes somos?</h2>
-      <p>Creali es una plataforma digital creada para impulsar el talento de estudiantes de distintas disciplinas creativas. Nuestro objetivo es brindarles un espacio donde puedan mostrar, compartir y vender sus proyectos de forma profesional.</p>
-      <p>Aquí encontrarás ilustraciones, diseños, desarrollos de software, productos digitales y más, elaborados por jóvenes con pasión e innovación. Creali busca fomentar el emprendimiento estudiantil, conectando creadores con personas interesadas en adquirir ideas frescas y originales.</p>
-      <p>Creemos en el poder de la creatividad y en la comunidad que la respalda.</p>
-    </div>
-    <div class="col-md-6 text-center mt-4 mt-md-0">
-      <img src="{{ url_for('static', filename='img/acerca12.jpg') }}" class="img-fluid rounded shadow-sm" alt="Estudiante trabajando">
+<section class="py-5 bg-white text-dark">
+  <div class="container" id="acerca-content">
+    <div class="row align-items-center">
+
+      <div class="col-md-6 mb-4 mb-md-0" data-aos="fade-right">
+        <h2 class="fw-bold display-5 text-dark d-flex align-items-center mb-4">
+          <i class="bi bi-lightbulb me-2"></i> ¿Quiénes somos?
+        </h2>
+        <p class="text-muted">Creali es una plataforma digital creada para impulsar el talento de estudiantes de distintas disciplinas creativas.</p>
+        <p class="text-muted">Buscamos brindarles un espacio donde puedan mostrar, compartir y vender sus proyectos de forma profesional.</p>
+        <p class="text-muted">Aquí encontrarás ilustraciones, diseños, software, y productos digitales, hechos con pasión e innovación.</p>
+      </div>
+
+      <div class="col-md-6 text-center" data-aos="fade-left">
+        <img src="{{ url_for('static', filename='img/acerca12.jpg') }}" class="img-fluid rounded-4 shadow-lg" alt="Estudiante trabajando">
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- Sección: De estudiantes para el mundo -->
-<section class="section section-alt text-center">
-  <div class="container">
-    <h2 class="fw-bold mb-4">De estudiantes para el mundo</h2>
-    <p class="mx-auto" style="max-width: 800px;">Creali nació como una iniciativa estudiantil para resolver un problema común: ¿dónde mostrar todo lo que creamos? Desde entonces, se ha convertido en un espacio para exponer talento, generar ingresos y construir una comunidad creativa.</p>
-    <img src="{{ url_for('static', filename='img/acerca11.jpg') }}" class="img-fluid rounded mt-5 shadow-sm" style="max-width: 900px;" alt="Trabajo en equipo">
+
+<section class="py-5 bg-light text-dark">
+  <div class="container text-center" data-aos="zoom-in" id="acerca-content">
+  
+    <h2 class="fw-bold display-5 text-dark d-flex justify-content-center align-items-center mb-4">
+      <i class="bi bi-globe-americas me-2"></i> De estudiantes para el mundo
+    </h2>
+
+    <p class="text-muted mx-auto mt-3" style="max-width: 750px;">
+      Creali nació como una iniciativa estudiantil para responder a una pregunta simple:
+      <span style="color: #070039; font-weight: bold;">¿dónde mostrar todo lo que creamos?</span>
+    </p>
+
+    <p class="text-muted mx-auto" style="max-width: 750px;">
+      Hoy, somos una comunidad que conecta ideas frescas con personas que valoran la creatividad, el emprendimiento y la innovación digital.
+    </p>
+
+    <img src="{{ url_for('static', filename='img/acerca11.jpg') }}" class="img-fluid rounded-4 shadow-lg mt-4" style="max-width: 900px;" alt="Trabajo en equipo">
   </div>
 </section>
 
-<!-- Sección: Nuestros valores -->
-<section class="section container">
-  <div class="text-center mb-5">
-    <h2 class="fw-bold mb-4">Nuestros valores</h2>
-  </div>
-  <div class="row text-center g-5">
-    <div class="col-md-3">
-      <div class="fs-1 mb-3">🎨</div>
-      <h5 class="fw-semibold">Creatividad</h5>
-      <p class="mt-2">Fomentamos la libertad para expresarse a través de ilustraciones, diseño, desarrollo y más. Cada estudiante tiene un estilo único.</p>
-    </div>
-    <div class="col-md-3">
-      <div class="fs-1 mb-3">🚀</div>
-      <h5 class="fw-semibold">Emprendimiento</h5>
-      <p class="mt-2">Ayudamos a convertir ideas y proyectos en oportunidades reales de ingresos, desde el aula hacia el mundo.</p>
-    </div>
-    <div class="col-md-3">
-      <div class="fs-1 mb-3">🤝</div>
-      <h5 class="fw-semibold">Comunidad</h5>
-      <p class="mt-2">Promovemos colaboración, respeto y aprendizaje mutuo entre estudiantes, compradores y creativos.</p>
-    </div>
-    <div class="col-md-3">
-      <div class="fs-1 mb-3">🌐</div>
-      <h5 class="fw-semibold">Accesibilidad</h5>
-      <p class="mt-2">Plataforma abierta 24/7 para cualquier estudiante que quiera compartir su trabajo, sin importar su experiencia.</p>
+
+
+
+
+<section class="py-5 bg-white text-center">
+  <div class="container" id="acerca-content">
+    <h2 class="fw-bold display-5 text-dark mb-4" style="font-family: 'Montserrat', sans-serif;">
+      <i class="bi bi-stars me-2"></i> Nuestros valores
+    </h2>
+
+
+    <div class="row justify-content-center g-4">
+
+      <!-- Tarjeta 1 -->
+      <div class="col-md-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-4 border rounded shadow-sm h-100 bg-light">
+          <div class="display-4 mb-3 text-primary">🎨</div>
+          <h5 class="fw-semibold mb-3">Creatividad</h5>
+          <p class="mb-0">Fomentamos la libertad para expresarse a través de ilustraciones, diseño, desarrollo y más. Cada estudiante tiene un estilo único.</p>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2 -->
+      <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
+        <div class="p-4 border rounded shadow-sm h-100 bg-light">
+          <div class="display-4 mb-3 text-success">🚀</div>
+          <h5 class="fw-semibold mb-3">Emprendimiento</h5>
+          <p class="mb-0">Ayudamos a convertir ideas y proyectos en oportunidades reales de ingresos, desde el aula hacia el mundo.</p>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3 -->
+      <div class="col-md-5" data-aos="fade-up" data-aos-delay="300">
+        <div class="p-4 border rounded shadow-sm h-100 bg-light">
+          <div class="display-4 mb-3 text-warning">🤝</div>
+          <h5 class="fw-semibold mb-3">Comunidad</h5>
+          <p class="mb-0">Promovemos colaboración, respeto y aprendizaje mutuo entre estudiantes, compradores y creativos.</p>
+        </div>
+      </div>
+
+      <!-- Tarjeta 4 -->
+      <div class="col-md-5" data-aos="fade-up" data-aos-delay="400">
+        <div class="p-4 border rounded shadow-sm h-100 bg-light">
+          <div class="display-4 mb-3 text-danger">🌐</div>
+          <h5 class="fw-semibold mb-3">Accesibilidad</h5>
+          <p class="mb-0">Plataforma abierta 24/7 para cualquier estudiante que quiera compartir su trabajo, sin importar su experiencia.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
+
+
 
 {% endblock %}
