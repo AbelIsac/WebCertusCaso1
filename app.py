@@ -1,7 +1,42 @@
 from flask import Flask, flash, render_template, request, redirect, url_for, session
+from authlib.integrations.flask_client import OAuth
+import os
+import psycopg2
+from dotenv import load_dotenv
+load_dotenv()
+
 
 app = Flask(__name__)
-app.secret_key = 'clave_secreta_para_session'
+app.secret_key = 'password1234'  # ✅ Usa una fija y segura
+
+
+# Configuración de OAuth con Google
+oauth = OAuth(app)
+
+
+google = oauth.register(
+    name='google',
+    client_id='7771642900-nmtncn8orno37csloo3ftk30s9gul1v2.apps.googleusercontent.com',
+    client_secret='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',
+    access_token_url='https://oauth2.googleapis.com/token',
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    api_base_url='https://www.googleapis.com/oauth2/v2/',
+    client_kwargs={
+        'scope': 'email profile'
+    }
+
+)
+
+# Función de conexión a la base de datos
+def conectar_db():
+    conn = psycopg2.connect(
+        host="localhost",
+        database="creali_db",
+        user="postgres",
+        password=os.getenv("DB_PASSWORD")  # ✅ bien escrito aquí
+    )
+    return conn
+
 
 
 proyectos = [
@@ -77,6 +112,82 @@ def home():
 @app.route('/acerca')
 def acerca():
     return render_template('acerca.html')
+
+from flask import redirect, url_for, session
+
+@app.route('/login')
+def login():
+    rol = request.args.get('rol')
+    if rol:
+        session['rol_temp'] = rol  # ✅ se guarda antes del redireccionamiento
+
+    redirect_uri = url_for('auth_google_callback', _external=True)
+    return oauth.google.authorize_redirect(redirect_uri)
+
+
+@app.route('/auth/google/callback')
+def auth_google_callback():
+    token = oauth.google.authorize_access_token()
+
+    # ❌ NO uses parse_id_token
+    # user_info = oauth.google.parse_id_token(token) ← esto da error
+
+    # ✅ Mejor usa la API de Google para obtener la información del usuario
+    user_info = oauth.google.get('userinfo').json()
+
+    correo = user_info['email']
+    nombre = user_info.get('name', 'Usuario')
+    rol = session.pop('rol_temp', None)
+
+    conn = conectar_db()
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
+    usuario = cur.fetchone()
+
+    if not usuario:
+        cur.execute("""
+            INSERT INTO usuarios (nombre, correo, rol, clave)
+            VALUES (%s, %s, %s, %s)
+        """, (nombre, correo, rol or 'comprador', ''))
+        conn.commit()
+        cur.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
+        usuario = cur.fetchone()
+
+    session['usuario_id'] = usuario[0]
+    session['usuario_nombre'] = usuario[1]
+    session['usuario_rol'] = usuario[3]
+
+    conn.close()
+
+    # Redirección según el rol
+    if session['usuario_rol'] == 'profesor':
+        return redirect(url_for('panel_profesor'))
+    elif session['usuario_rol'] == 'estudiante':
+        return redirect(url_for('panel_estudiante'))
+    else:
+        return redirect(url_for('home'))
+
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
+
+@app.route('/panel/profesor')
+def panel_profesor():
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+    return render_template('panel_profesor.html', nombre=session['usuario_nombre'])
+
+@app.route('/panel/estudiante')
+def panel_estudiante():
+    if 'usuario_id' not in session:
+        return redirect(url_for('login'))
+    return render_template('panel_estudiante.html', nombre=session['usuario_nombre'])
+
+
 
 @app.route('/explorar')
 def explorar():
